@@ -49,7 +49,20 @@ jobs:
 
           echo "::set-output name=USD_BINARY_ARCHIVE::$binArchive"
           
-          7z a "$binArchive" ${{github.workspace}}/Build
+          7z a "$binArchive" ${{github.workspace}}/Build/bin
+          7z a "$binArchive" ${{github.workspace}}/Build/cmake
+          7z a "$binArchive" ${{github.workspace}}/Build/include
+          7z a "$binArchive" ${{github.workspace}}/Build/lib
+          7z a "$binArchive" ${{github.workspace}}/Build/libraries
+          7z a "$binArchive" ${{github.workspace}}/Build/plugin
+          7z a "$binArchive" ${{github.workspace}}/Build/python
+          7z a "$binArchive" ${{github.workspace}}/Build/resources
+          7z a "$binArchive" ${{github.workspace}}/Build/share
+          7z a "$binArchive" ${{github.workspace}}/Build/CHANGELOG.md
+          7z a "$binArchive" ${{github.workspace}}/Build/LICENSE
+          7z a "$binArchive" ${{github.workspace}}/Build/pxrConfig.cmake
+          7z a "$binArchive" ${{github.workspace}}/Build/README.md
+          7z a "$binArchive" ${{github.workspace}}/Build/THIRD-PARTY.md
 
     - name: Publish
       uses: softprops/action-gh-release@v1
