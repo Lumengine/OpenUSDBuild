@@ -42,7 +42,7 @@ jobs:
     - name: Run build scripts
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
-      run: python build_scripts/build_usd.py ./Build --build-variant release --toolset 143 --generator "Visual Studio 17 2022"
+      run: python build_scripts/build_usd.py ./Build --build-variant release --toolset v143 --generator "Visual Studio 17 2022"
       env:
            BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
            
