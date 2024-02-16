@@ -34,7 +34,8 @@ jobs:
       # Configure CMake in a 'build' subdirectory. `CMAKE_BUILD_TYPE` is only required if you are using a single-configuration generator such as make.
       # See https://cmake.org/cmake/help/latest/variable/CMAKE_BUILD_TYPE.html?highlight=cmake_build_type
       run: |
-          python build_scripts/build_usd.py ./Build --build-variant release --toolset v143 --generator "Visual Studio 17 2022"
+          python build_scripts/build_usd.py ./Build/Release --build-variant release --toolset v143 --generator "Visual Studio 17 2022"
+          python build_scripts/build_usd.py ./Build/Debug --build-variant debug --toolset v143 --generator "Visual Studio 17 2022"
       env:
            BOOST_ROOT: ${{ steps.install-boost.outputs.BOOST_ROOT }}
            
@@ -45,30 +46,48 @@ jobs:
 
           $tagName = & git describe --tags
           $version = $tagName.TrimStart("v")
-          $binArchive = "Lumengine-USD_23.11_windows_x64_py3.11_$version.zip"
+          $binArchiveDebug = "Lumengine-USD_$version_windows_x64_py3.11_Debug.zip"
+          $binArchiveRelease = "Lumengine-USD_$version_windows_x64_py3.11_Release.zip"
 
-          echo "::set-output name=USD_BINARY_ARCHIVE::$binArchive"
+          echo "::set-output name=USD_BINARY_ARCHIVE_DEBUG::$binArchiveDebug"
+          echo "::set-output name=USD_BINARY_ARCHIVE_RELEASE::$binArchiveRelease"
           
-          7z a "$binArchive" ${{github.workspace}}/Build/bin
-          7z a "$binArchive" ${{github.workspace}}/Build/cmake
-          7z a "$binArchive" ${{github.workspace}}/Build/include
-          7z a "$binArchive" ${{github.workspace}}/Build/lib
-          7z a "$binArchive" ${{github.workspace}}/Build/libraries
-          7z a "$binArchive" ${{github.workspace}}/Build/plugin
-          7z a "$binArchive" ${{github.workspace}}/Build/python
-          7z a "$binArchive" ${{github.workspace}}/Build/resources
-          7z a "$binArchive" ${{github.workspace}}/Build/share
-          7z a "$binArchive" ${{github.workspace}}/Build/CHANGELOG.md
-          7z a "$binArchive" ${{github.workspace}}/Build/LICENSE
-          7z a "$binArchive" ${{github.workspace}}/Build/pxrConfig.cmake
-          7z a "$binArchive" ${{github.workspace}}/Build/README.md
-          7z a "$binArchive" ${{github.workspace}}/Build/THIRD-PARTY.md
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/bin
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/cmake
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/include
+          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/lib
+          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/libraries
+          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/plugin
+          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/python
+          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/resources
+          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/share
+          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/CHANGELOG.md
+          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/LICENSE
+          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/pxrConfig.cmake
+          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/README.md
+          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/THIRD-PARTY.md
+
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/bin
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/cmake
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/include
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/lib
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/libraries
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/plugin
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/python
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/resources
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/share
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/CHANGELOG.md
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/LICENSE
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/pxrConfig.cmake
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/README.md
+          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/THIRD-PARTY.md
 
     - name: Publish
       uses: softprops/action-gh-release@v1
       with:
           files: |
-            ${{ steps.archive.outputs.USD_BINARY_ARCHIVE }}
+            ${{ steps.archive.outputs.USD_BINARY_ARCHIVE_DEBUG }}
+            ${{ steps.archive.outputs.USD_BINARY_ARCHIVE_RELEASE }}
       env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
