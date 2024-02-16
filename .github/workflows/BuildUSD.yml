@@ -55,32 +55,32 @@ jobs:
           7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/bin
           7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/cmake
           7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/include
-          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/lib
-          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/libraries
-          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/plugin
-          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/python
-          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/resources
-          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/share
-          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/CHANGELOG.md
-          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/LICENSE
-          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/pxrConfig.cmake
-          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/README.md
-          7z a "$$binArchiveDebug" ${{github.workspace}}/Build/Debug/THIRD-PARTY.md
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/lib
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/libraries
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/plugin
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/python
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/resources
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/share
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/CHANGELOG.md
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/LICENSE
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/pxrConfig.cmake
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/README.md
+          7z a "$binArchiveDebug" ${{github.workspace}}/Build/Debug/THIRD-PARTY.md
 
           7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/bin
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/cmake
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/include
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/lib
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/libraries
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/plugin
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/python
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/resources
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/share
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/CHANGELOG.md
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/LICENSE
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/pxrConfig.cmake
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/README.md
-          7z a "$$binArchiveRelease" ${{github.workspace}}/Build/Release/THIRD-PARTY.md
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/cmake
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/include
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/lib
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/libraries
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/plugin
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/python
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/resources
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/share
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/CHANGELOG.md
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/LICENSE
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/pxrConfig.cmake
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/README.md
+          7z a "$binArchiveRelease" ${{github.workspace}}/Build/Release/THIRD-PARTY.md
 
     - name: Publish
       uses: softprops/action-gh-release@v1
