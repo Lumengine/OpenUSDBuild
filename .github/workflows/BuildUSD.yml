@@ -125,8 +125,13 @@ jobs:
           echo "USD_BINARY_ARCHIVE_DEBUG=$BIN_ARCHIVE_DEBUG" >> $GITHUB_OUTPUT
           echo "USD_BINARY_ARCHIVE_RELEASE=$BIN_ARCHIVE_RELEASE" >> $GITHUB_OUTPUT
 
-          tar -czvf "$BIN_ARCHIVE_DEBUG" -C Build/Debug .
-          tar -czvf "$BIN_ARCHIVE_RELEASE" -C Build/Release .
+          tar -czvf "$BIN_ARCHIVE_DEBUG" -C Build/Debug \
+            bin cmake include lib libraries plugin python resources share \
+            CHANGELOG.md LICENSE pxrConfig.cmake README.md THIRD-PARTY.md
+
+          tar -czvf "$BIN_ARCHIVE_RELEASE" -C Build/Release \
+            bin cmake include lib libraries plugin python resources share \
+            CHANGELOG.md LICENSE pxrConfig.cmake README.md THIRD-PARTY.md
 
     - name: Publish (Windows)
       if: runner.os == 'Windows'
