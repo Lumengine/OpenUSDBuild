@@ -72,6 +72,45 @@ jobs:
       run: |
           python build_scripts/build_usd.py ./Build/${{ matrix.variant_name }} --build-variant ${{ matrix.variant }} --generator Ninja --materialx --onetbb --draco --openimageio
 
+    - name: Make cmake configs relocatable
+      shell: pwsh
+      run: |
+          $buildPath = "${{ github.workspace }}/Build/${{ matrix.variant_name }}"
+          $pythonPath = (python -c "import sys, os; print(os.path.dirname(sys.executable))")
+
+          $files = @(
+            "$buildPath/pxrConfig.cmake",
+            "$buildPath/cmake/pxrTargets.cmake"
+          )
+          $oiioConfig = "$buildPath/lib/cmake/OpenImageIO/OpenImageIOConfig.cmake"
+          $oiioTargets = "$buildPath/lib/cmake/OpenImageIO/OpenImageIOTargets.cmake"
+          if (Test-Path $oiioConfig) { $files += $oiioConfig }
+          if (Test-Path $oiioTargets) { $files += $oiioTargets }
+
+          foreach ($file in $files) {
+            if (Test-Path $file) {
+              $content = Get-Content $file -Raw
+
+              # Replace build path (forward and back slashes)
+              $fwd = ($buildPath -replace '\\', '/')
+              $back = ($buildPath -replace '/', '\')
+              $content = $content -replace [regex]::Escape($fwd), '${USD_BUILD_PATH}'
+              $content = $content -replace [regex]::Escape($back), '${USD_BUILD_PATH}'
+
+              # Replace Python path (forward and back slashes)
+              $pyFwd = ($pythonPath -replace '\\', '/')
+              $pyBack = ($pythonPath -replace '/', '\')
+              $content = $content -replace [regex]::Escape($pyFwd), '${USD_PYTHON_PATH}'
+              $content = $content -replace [regex]::Escape($pyBack), '${USD_PYTHON_PATH}'
+
+              # Prepend variable definitions from environment
+              $header = 'set(USD_BUILD_PATH "$ENV{USD_BUILD_PATH}")' + "`r`n" + 'set(USD_PYTHON_PATH "$ENV{USD_PYTHON_PATH}")' + "`r`n"
+              $content = $header + $content
+              Set-Content $file -Value $content -NoNewline
+              Write-Output "Patched: $file"
+            }
+          }
+
     - name: Archive (Windows)
       if: runner.os == 'Windows'
       id: archive
