@@ -65,12 +65,12 @@ jobs:
     - name: Build (Windows)
       if: runner.os == 'Windows'
       run: |
-          python build_scripts/build_usd.py ./Build/${{ matrix.variant_name }} --build-variant ${{ matrix.variant }} --toolset v143 --generator "Visual Studio 17 2022" --materialx
+          python build_scripts/build_usd.py ./Build/${{ matrix.variant_name }} --build-variant ${{ matrix.variant }} --toolset v143 --generator "Visual Studio 17 2022" --materialx --onetbb --draco --openimageio
 
     - name: Build (Linux)
       if: runner.os == 'Linux'
       run: |
-          python build_scripts/build_usd.py ./Build/${{ matrix.variant_name }} --build-variant ${{ matrix.variant }} --generator Ninja --materialx
+          python build_scripts/build_usd.py ./Build/${{ matrix.variant_name }} --build-variant ${{ matrix.variant }} --generator Ninja --materialx --onetbb --draco --openimageio
 
     - name: Archive (Windows)
       if: runner.os == 'Windows'
