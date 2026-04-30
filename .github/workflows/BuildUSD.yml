@@ -32,7 +32,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
           repository: PixarAnimationStudios/OpenUSD
-          ref: v26.03
+          ref: v26.05
 
     - name: Install Linux dependencies
       if: runner.os == 'Linux'
