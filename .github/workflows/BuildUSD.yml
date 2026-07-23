@@ -10,11 +10,11 @@ jobs:
     strategy:
       matrix:
         include:
-          - os: windows-2025
+          - os: windows-2022
             platform: windows_x64
             variant: release
             variant_name: Release
-          - os: windows-2025
+          - os: windows-2022
             platform: windows_x64
             variant: debug
             variant_name: Debug
