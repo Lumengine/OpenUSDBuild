@@ -32,7 +32,7 @@ jobs:
     - uses: actions/checkout@v4
       with:
           repository: PixarAnimationStudios/OpenUSD
-          ref: v26.05
+          ref: v26.08
 
     - name: Install Linux dependencies
       if: runner.os == 'Linux'
@@ -65,12 +65,12 @@ jobs:
     - name: Build (Windows)
       if: runner.os == 'Windows'
       run: |
-          python build_scripts/build_usd.py ./Build/${{ matrix.variant_name }} --build-variant ${{ matrix.variant }} --toolset v143 --generator "Visual Studio 17 2022" --materialx --onetbb --draco --openimageio
+          python build_scripts/build_usd.py ./Build/${{ matrix.variant_name }} --build-variant ${{ matrix.variant }} --toolset v143 --generator "Visual Studio 17 2022" --materialx --onetbb --draco --openimageio --python-install-dir lib/python
 
     - name: Build (Linux)
       if: runner.os == 'Linux'
       run: |
-          python build_scripts/build_usd.py ./Build/${{ matrix.variant_name }} --build-variant ${{ matrix.variant }} --generator Ninja --materialx --onetbb --draco --openimageio
+          python build_scripts/build_usd.py ./Build/${{ matrix.variant_name }} --build-variant ${{ matrix.variant }} --generator Ninja --materialx --onetbb --draco --openimageio --python-install-dir lib/python
 
     - name: Make cmake configs relocatable
       shell: pwsh
